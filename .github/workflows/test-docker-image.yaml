@@ -1,0 +1,17 @@
+name: Test Bazel Builder with Docker Image Input
+
+on: 
+    workflow_dispatch:
+    release:
+        types: [created]
+        
+jobs:
+    build:
+        permissions:
+          id-token: write # For signing
+          contents: read # For repo checkout.
+          actions: read # For getting workflow run info.
+        uses: enteraga6/slsa-github-generator/.github/workflows/builder_bazel_slsa3.yml@v1.0.1
+        with:
+            targets: "//src:fib"
+            docker-image: "docker.io/elzner2/test_image_bazel:v1.0"
