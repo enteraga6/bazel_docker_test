@@ -1,0 +1,19 @@
+name: Rebuilder Test with Edge Globs
+
+on: 
+    workflow_dispatch:
+    release:
+        types: [created]
+        
+jobs:
+    build:
+        permissions:
+          id-token: write # For signing
+          contents: read # For repo checkout.
+          actions: read # For getting workflow run info.
+        uses: enteraga6/slsa-github-generator/.github/workflows/builder_bazel_slsa3.yml@feat-docker-input
+        with:
+            targets: "//src/... //src/internal:all"
+            docker-image: "docker.io/elzner2/test_image_bazel:v1.2"
+            includes-java: true
+            needs-runfiles: true
