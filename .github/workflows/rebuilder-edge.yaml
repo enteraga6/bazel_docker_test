@@ -13,7 +13,7 @@ jobs:
           actions: read # For getting workflow run info.
         uses: enteraga6/slsa-github-generator/.github/workflows/builder_bazel_slsa3.yml@feat-docker-input
         with:
-            targets: "//src/... //src/internal:all"
+            targets: "//src/..."
             docker-image: "docker.io/elzner2/test_image_bazel:v1.2"
             includes-java: true
             needs-runfiles: true
