@@ -24,7 +24,7 @@ jobs:
             - id: download-att
               uses: actions/download-artifact@v3
               with:
-                name: ${{ needs.build.outputs.attestations-download-name }}
+                name: ${{ needs.build.outputs.provenance-download-name }}
             - id: download-bin 
               uses: actions/download-artifact@v3
               with:
@@ -34,7 +34,7 @@ jobs:
               run: |
                 echo ${{ steps.download-att.outputs.download-path }}
                 echo ${{ steps.download-bin.outputs.download-path }}
-                echo ${{ needs.build.outputs.attestations-download-name }}
+                echo ${{ needs.build.outputs.provenance-download-name }}
                 echo ${{ needs.build.outputs.binaries-download-name }}
                 echo ""
                 ls -a
