@@ -34,6 +34,8 @@ jobs:
               run: |
                 echo ${{ steps.download-att.outputs.download-path }}
                 echo ${{ steps.download-bin.outputs.download-path }}
+                echo ${{ needs.build.outputs.attestations-download-name }}
+                echo ${{ needs.build.outputs.binaries-download-name }}
                 echo ""
                 ls -a
                 
