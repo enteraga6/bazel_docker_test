@@ -1,9 +1,12 @@
-name: TESTING NEW OUTPUTS - Rebuilder Test with Edge Globs
+name: Test Workflow to Generate Reproducible Artifacts
 
 on: 
     workflow_dispatch:
     release:
         types: [created]
+    push:
+        tags:
+            - v*.*.*
         
 jobs:
     build:
