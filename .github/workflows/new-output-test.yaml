@@ -32,9 +32,12 @@ jobs:
               uses: actions/download-artifact@v3
               with:
                 name: ${{ needs.build.outputs.artifacts-download-name }}
-            - id: echo
-              shell: bash
-              run: |
+            - run: |
                 set -euo pipefail
                 ls
                 tree
+                tar xvfz folder.tgz
+                ls
+                tree
+              
+
