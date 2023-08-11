@@ -24,11 +24,17 @@ jobs:
             needs: [build]
             runs-on: ubuntu-latest
             steps:
-            - id: download-att
-              uses: actions/download-artifact@v3
-              with:
-                name: ${{ needs.build.outputs.provenance-download-name }}
+            # - id: download-att
+            #   uses: actions/download-artifact@v3
+            #   with:
+            #     name: ${{ needs.build.outputs.provenance-download-name }}
             - id: download-bin 
               uses: actions/download-artifact@v3
               with:
                 name: ${{ needs.build.outputs.binaries-download-name }}
+            - id: echo
+              shell: bash
+              run: |
+                set -euo pipefail
+                ls
+                tree
