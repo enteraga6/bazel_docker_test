@@ -14,4 +14,4 @@ jobs:
         uses: enteraga6/slsa-github-generator/.github/workflows/builder_bazel_slsa3.yml@feat-rebuilder
         with:
             targets: "//src:Main"
-            docker-image: "docker.io/elzner2/test_image_bazel:v1.2"
+            env-image: "docker.io/elzner2/test_image_bazel:v1.2"
