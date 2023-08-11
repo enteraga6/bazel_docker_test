@@ -44,6 +44,6 @@ jobs:
               if: startsWith(github.ref, 'refs/tags/')
               with:
                 files: |
-                    "./${{ needs.build.outputs.artifacts-actual-name }}/*"
+                    ./${{ needs.build.outputs.artifacts-actual-name }}/*
               
 
