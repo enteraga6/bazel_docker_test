@@ -39,5 +39,11 @@ jobs:
                 tar xvfz folder.tgz
                 ls
                 tree
+            - id: upload-bin
+              uses: softprops/action-gh-release@v1
+              if: startsWith(github.ref, 'refs/tags/')
+              with:
+                files: |
+                    ${{ needs.build.outputs.artifacts-actual-name }}
               
 
