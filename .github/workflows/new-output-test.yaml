@@ -18,6 +18,7 @@ jobs:
         with:
             targets: "//src/..."
             env-image: "docker.io/elzner2/test_image_bazel:v1.2"
+            env-image-digest: "bc93a0c34dc577ca4d282dcf8cfb20646c046efa30503a9d793b856111bf8c51"
             includes-java: true
             needs-runfiles: true
     download:
