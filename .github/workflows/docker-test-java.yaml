@@ -14,5 +14,5 @@ jobs:
         uses: enteraga6/slsa-github-generator/.github/workflows/builder_bazel_slsa3.yml@62e616c1b0865376c5cc3c9b1706febe8f8c21e9 #passing lint commit
         with:
             targets: "//src:Main"
-            env-image: "docker.io/elzner2/test_image_bazel:v1.2"
+            docker-image: "docker.io/elzner2/test_image_bazel:v1.2"
             includes-java: true
