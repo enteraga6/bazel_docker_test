@@ -15,3 +15,4 @@ jobs:
         with:
             targets: "//src:Main"
             env-image: "docker.io/elzner2/test_image_bazel:v1.2"
+            includes-java: true
