@@ -2,11 +2,11 @@ name: Test Workflow to Generate Reproducible Artifacts
 
 on: 
     workflow_dispatch:
-    release:
-        types: [created]
-    push:
-        tags:
-            - v*.*.*
+    # release:
+    #     types: [created]
+    # push:
+    #     tags:
+    #         - v*.*.*
         
 jobs:
     build:
