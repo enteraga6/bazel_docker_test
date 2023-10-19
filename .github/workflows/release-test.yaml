@@ -1,0 +1,58 @@
+name: Test Workflow to Generate Reproducible Artifacts
+
+on: 
+    workflow_dispatch:
+    release:
+        types: [created]
+    push:
+        tags:
+            - v*.*.*
+        
+jobs:
+    build:
+        permissions:
+          id-token: write # For signing
+          contents: read # For repo checkout.
+          actions: read # For getting workflow run info.
+        uses: enteraga6/slsa-github-generator/.github/workflows/builder_bazel_slsa3.yml@feat-rebuilder
+        with:
+            targets: "//src:fib"
+            env-image: "docker.io/elzner2/test_image_bazel:v1.2"
+            env-image-digest: "bc93a0c34dc577ca4d282dcf8cfb20646c046efa30503a9d793b856111bf8c51"
+    download:
+            needs: [build]
+            runs-on: ubuntu-latest
+            steps:
+            - id: download-att
+              uses: actions/download-artifact@v3
+              with:
+                name: ${{ needs.build.outputs.provenance-download-name }}
+            - run: |
+                set -euo pipefail
+                ls
+                tree
+                tar xvfz folder.tgz
+                ls
+                tree
+            - id: download-bin 
+              uses: actions/download-artifact@v3
+              with:
+                name: ${{ needs.build.outputs.artifacts-download-name }}
+            - run: |
+                set -euo pipefail
+                ls
+                tree
+                tar xvfz folder.tgz
+                ls
+                tree
+                echo ${{ needs.build.outputs.artifacts-actual-name }}
+                echo ${{ needs.build.outputs.provenance-download-name }}
+            - id: upload-bin
+              uses: softprops/action-gh-release@v1
+              with:
+                files: |
+                    ${{ needs.build.outputs.artifacts-actual-name }}/*
+                    ${{ needs.build.outputs.provenance-download-name }}/*
+                    
+              
+
