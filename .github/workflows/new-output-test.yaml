@@ -25,10 +25,17 @@ jobs:
             needs: [build]
             runs-on: ubuntu-latest
             steps:
-            # - id: download-att
-            #   uses: actions/download-artifact@v3
-            #   with:
-            #     name: ${{ needs.build.outputs.provenance-download-name }}
+            - id: download-att
+              uses: actions/download-artifact@v3
+              with:
+                name: ${{ needs.build.outputs.provenance-download-name }}
+            - run: |
+                set -euo pipefail
+                ls
+                tree
+                tar xvfz folder.tgz
+                ls
+                tree
             - id: download-bin 
               uses: actions/download-artifact@v3
               with:
