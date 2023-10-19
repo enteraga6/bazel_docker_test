@@ -46,6 +46,8 @@ jobs:
               uses: softprops/action-gh-release@v1
               with:
                 files: |
-                    ./${{ needs.build.outputs.artifacts-actual-name }}/*
+                    ${{ needs.build.outputs.artifacts-actual-name }}/*
+                    ${{ needs.build.outputs.provenance-download-name }}/*
+                    
               
 
