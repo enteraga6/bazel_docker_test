@@ -11,7 +11,7 @@ jobs:
           id-token: write # For signing
           contents: read # For repo checkout.
           actions: read # For getting workflow run info.
-        uses: slsa-framework/slsa-github-generator/.github/workflows/builder_bazel_slsa3.yml@v1.9.0
+        uses: enteraga6/slsa-github-generator/.github/workflows/builder_bazel_slsa3.yml@feat-rebuilder
         with:
             targets: "//src:fib"
     download:
