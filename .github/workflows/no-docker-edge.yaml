@@ -2,8 +2,8 @@ name: Rebuilder Test with Edge Globs and not providing Docker Image
 
 on: 
     workflow_dispatch:
-    release:
-        types: [created]
+    # release:
+    #     types: [created]
         
 jobs:
     build:
