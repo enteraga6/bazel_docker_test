@@ -2,8 +2,8 @@ name: Test Bazel Builder with Docker Image Input on Java Target
 
 on: 
     workflow_dispatch:
-    release:
-        types: [created]
+    # release:
+    #     types: [created]
         
 jobs:
     build:
