@@ -1,0 +1,41 @@
+name: Investigate Sigstore Bug
+
+on: 
+    workflow_dispatch:
+    # release:
+    #     types: [created]
+        
+jobs:
+    build:
+        permissions:
+          id-token: write # For signing
+          contents: read # For repo checkout.
+          actions: read # For getting workflow run info.
+        uses: enteraga6/slsa-github-generator/.github/workflows/builder_bazel_slsa3.yml@sigstore-bug
+        with:
+            targets: "//src:fib"
+    download:
+            needs: [build]
+            runs-on: ubuntu-latest
+            steps:
+            - id: download-att
+              uses: actions/download-artifact@v3
+              with:
+                name: ${{ needs.build.outputs.provenance-download-name }}
+            - run: tar xvfz folder.tgz
+            
+            - id: download-bin 
+              uses: actions/download-artifact@v3
+              with:
+                name: ${{ needs.build.outputs.artifacts-download-name }}
+            - run: tar xvfz folder.tgz
+            
+            - id: upload
+              uses: softprops/action-gh-release@v1
+              with:
+                files: |
+                    ${{ needs.build.outputs.artifacts-actual-name }}/*
+                    ${{ needs.build.outputs.provenance-download-name }}/*
+                    
+              
+
