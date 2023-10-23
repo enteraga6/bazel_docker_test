@@ -30,7 +30,7 @@ jobs:
                 name: ${{ needs.build.outputs.artifacts-download-name }}
             - run: tar xvfz folder.tgz
 
-            - id: Zip the artifact folder to .zip
+            - id: zip
               run: zip -r artifact-folder.zip ${{ needs.build.outputs.artifacts-actual-name }}
             
             - id: upload
