@@ -33,7 +33,10 @@ jobs:
             - run: tar xvfz folder.tgz
 
             - id: zip
-              run: zip -r artifact-folder.zip ${{ needs.build.outputs.artifacts-actual-name }}
+              run: |
+                    ls
+                    echo ${{ needs.build.outputs.artifacts-actual-name }}
+                    zip -r artifact-folder.zip ${{ needs.build.outputs.artifacts-actual-name }}
             
             - id: upload
               uses: softprops/action-gh-release@v1
