@@ -1,0 +1,42 @@
+name: Release Artifacts and Provenances
+
+on: 
+    workflow_dispatch:
+    release:
+        types: [created]
+        
+jobs:
+    build:
+        permissions:
+          id-token: write # For signing
+          contents: read # For repo checkout.
+          actions: read # For getting workflow run info.
+        uses: enteraga6/slsa-github-generator/.github/workflows/builder_bazel_slsa3.yml@feat-rebuilder
+        with:
+            targets: "//src/..." # glob
+    download:
+            needs: [build]
+            runs-on: ubuntu-latest
+            steps:
+            - id: download-att
+              uses: actions/download-artifact@v3
+              with:
+                name: ${{ needs.build.outputs.provenance-download-name }}
+            - run: tar xvfz folder.tgz
+            
+            - id: download-bin 
+              uses: actions/download-artifact@v3
+              with:
+                name: ${{ needs.build.outputs.artifacts-download-name }}
+            - run: tar xvfz folder.tgz
+
+            - id: Zip the artifact folder to .zip
+              run: zip -r artifact-folder.zip ${{ needs.build.outputs.artifacts-actual-name }}
+            
+            - id: upload
+              uses: softprops/action-gh-release@v1
+              with:
+                files: |
+                    artifact-folder.zip
+                    ${{ needs.build.outputs.provenance-download-name }}/*
+                  
