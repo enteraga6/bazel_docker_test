@@ -1,4 +1,4 @@
-name: Using Sigstore v1.9
+name: Using Sigstore v1.8
 
 on: 
     workflow_dispatch:
